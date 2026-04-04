@@ -1,4 +1,4 @@
-/* ===== BASE STYLES (Keep your original) ===== */
+/* ===== BASE STYLES ===== */
 body {
   background-color: #0a0a0a;
   color: #ffffff;
@@ -11,13 +11,25 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ===== ORIGINAL CAROUSEL STYLES ===== */
+/* ===== CAROUSEL STYLES ===== */
 .carousel-container {
   width: 100%;
   overflow: hidden;
   position: relative;
   background: #0a0a0a;
   border-radius: 12px;
+}
+
+.carousel-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.5) 100%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .carousel-track {
@@ -40,7 +52,7 @@ html {
   100% { transform: translateX(-50%); }
 }
 
-/* ===== ORIGINAL HIDDEN DESCRIPTION ===== */
+/* ===== HIDDEN DESCRIPTION ===== */
 .hiddendescription {
   max-height: 0;
   font-size: 18px;
@@ -51,7 +63,7 @@ html {
   padding-top: 0;
 }
 
-/* ===== ORIGINAL INTRO SECTION ===== */
+/* ===== INTRO SECTION ===== */
 .intro {
   display: flex;
   align-items: center;
@@ -66,12 +78,12 @@ html {
   flex: 1;
   align-self: flex-start;
   white-space: normal;
-  padding-top: 80px;
+  padding-top: 120px;
 }
 
 .intro-content h1 {
   font-size: 60px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   color: #ffffff;
 }
 
@@ -89,13 +101,17 @@ html {
   color: #f5f5f5;
 }
 
-.intro-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+.intro-content p img {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: grayscale(20%);
 }
 
-/* ===== ORIGINAL ROUNDED FRAME ===== */
+.intro-content p img:hover {
+  transform: translateY(-8px) scale(1.15);
+  filter: grayscale(0%) drop-shadow(0 5px 15px rgba(0,166,255,0.5));
+}
+
+/* ===== ROUNDED FRAME ===== */
 .rounded-frame {
   border-radius: 50%;
   overflow: hidden;
@@ -103,6 +119,7 @@ html {
   height: 500px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   border: 3px solid white;
+  animation: pulseGlow 3s ease-in-out infinite;
 }
 
 .rounded-frame img {
@@ -112,22 +129,22 @@ html {
   display: block;
 }
 
-/* ===== ORIGINAL CONTRAST ===== */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 3px white, 0 0 0 6px rgba(0,166,255,0);
+  }
+  50% {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 3px white, 0 0 0 12px rgba(0,166,255,0.3);
+  }
+}
+
+/* ===== CONTRAST ===== */
 .contrast {
   height: 100px;
   background: linear-gradient(180deg, #0055aa 0%, #0a0a0a 100%);
 }
 
-/* ===== ORIGINAL BOLDED FONT ===== */
-.Boldedfont {
-  font-size: 35px;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
-  margin-bottom: 40px;
-}
-
-/* ===== ORIGINAL SECTION CONTAINERS ===== */
+/* ===== SECTION CONTAINERS ===== */
 .OtherAchievements,
 .technopreneur,
 .Robotics,
@@ -141,40 +158,64 @@ html {
   gap: 30px;
   padding: 60px 70px;
   background-color: #0a0a0a;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: sectionFadeIn 0.8s ease forwards;
 }
 
-/* ===== ORIGINAL CONTENT BOXES ===== */
+.cybersec { animation-delay: 0.2s; }
+.Robotics { animation-delay: 0.4s; }
+.technopreneur { animation-delay: 0.6s; }
+.Achievements { animation-delay: 0.8s; }
+.OtherAchievements { animation-delay: 1s; }
+
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.Boldedfont {
+  font-size: 35px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 40px;
+}
+
+/* ===== CONTENT BOXES ===== */
 .techno-content,
-.robotic-content {
+.robotic-content,
+.cybersec p {
   font-size: 20px;
   line-height: 1.8;
   color: #e0e0e0;
+  background-color: #121212;
+  border-radius: 20px;
+  border-left: 4px solid #00a6ff;
+}
+
+.techno-content,
+.robotic-content {
   max-width: 1000px;
   text-align: center;
   margin: 0 auto;
   padding: 20px;
-  background-color: #121212;
-  border-radius: 20px;
-  border-left: 4px solid #00a6ff;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .cybersec p {
-  margin: 0;
-  font-size: 20px;
-  line-height: 1.8;
-  color: #d0d0d0;
-  font-family: Arial, Helvetica, sans-serif;
   max-width: 900px;
   text-align: center;
-  background-color: #121212;
   padding: 30px;
-  border-radius: 20px;
-  border-left: 4px solid #00a6ff;
+  margin: 0;
   transition: all 0.3s ease;
 }
 
-/* ===== ORIGINAL ACHIEVEMENT CARDS ===== */
+/* ===== ACHIEVEMENT CARDS ===== */
 .achie1, .achie2, .achie3 {
   display: flex;
   align-items: center;
@@ -201,6 +242,10 @@ html {
   margin-top: 5px;
 }
 
+.achie2 {
+  flex-direction: row-reverse;
+}
+
 .text_container1 {
   flex: 0.7;
   text-align: left;
@@ -208,10 +253,14 @@ html {
 
 .head {
   font-size: 40px;
-  margin-top: 0;
-  margin-bottom: 0px;
+  margin: 0;
   font-weight: bold;
   color: #00a6ff;
+  transition: text-shadow 0.3s ease;
+}
+
+.head:hover {
+  text-shadow: 0 0 10px rgba(0, 166, 255, 0.5), 0 0 20px rgba(0, 166, 255, 0.3);
 }
 
 .Achiimg1 {
@@ -222,11 +271,7 @@ html {
   gap: 20px;
 }
 
-.achie2 {
-  flex-direction: row-reverse;
-}
-
-/* ===== MODERN GRID FOR OTHER ACHIEVEMENTS ===== */
+/* ===== OTHER ACHIEVEMENTS GRID ===== */
 .achievements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -245,6 +290,39 @@ html {
   background: linear-gradient(135deg, #1a1a2e, #16213e);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  animation: cardFadeIn 0.6s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid-card:nth-child(1) { animation-delay: 0.1s; }
+.grid-card:nth-child(2) { animation-delay: 0.2s; }
+.grid-card:nth-child(3) { animation-delay: 0.3s; }
+.grid-card:nth-child(4) { animation-delay: 0.4s; }
+.grid-card:nth-child(5) { animation-delay: 0.5s; }
+.grid-card:nth-child(6) { animation-delay: 0.6s; }
+.grid-card:nth-child(7) { animation-delay: 0.7s; }
+.grid-card:nth-child(8) { animation-delay: 0.8s; }
+.grid-card:nth-child(9) { animation-delay: 0.9s; }
+.grid-card:nth-child(10) { animation-delay: 1s; }
+
+.grid-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 166, 255, 0.3);
+}
+
+.grid-card:hover .card-image img {
+  transform: scale(1.1);
 }
 
 .card-image {
@@ -259,15 +337,6 @@ html {
   object-fit: cover;
   transition: transform 0.5s ease;
   pointer-events: none;
-}
-
-.grid-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 166, 255, 0.3);
-}
-
-.grid-card:hover .card-image img {
-  transform: scale(1.1);
 }
 
 .card-overlay {
@@ -291,14 +360,12 @@ html {
   font-weight: 700;
   margin-bottom: 5px;
   color: #00a6ff;
-  font-family: 'Inter', Arial, sans-serif;
 }
 
 .card-overlay p {
   font-size: 14px;
   color: #e0e0e0;
   margin: 0;
-  font-family: 'Inter', Arial, sans-serif;
 }
 
 /* ===== LIGHTBOX STYLES ===== */
@@ -358,13 +425,11 @@ html {
   font-size: 24px;
   margin-bottom: 8px;
   color: #00a6ff;
-  font-family: 'Inter', Arial, sans-serif;
 }
 
 .lightbox-caption p {
   font-size: 16px;
   color: #e0e0e0;
-  font-family: 'Inter', Arial, sans-serif;
 }
 
 .close {
@@ -377,7 +442,6 @@ html {
   cursor: pointer;
   transition: color 0.3s ease;
   z-index: 1001;
-  font-family: Arial, sans-serif;
 }
 
 .close:hover {
@@ -396,7 +460,6 @@ html {
   transition: all 0.3s ease;
   border-radius: 8px;
   user-select: none;
-  font-family: Arial, sans-serif;
 }
 
 .lightbox-prev {
@@ -441,93 +504,7 @@ html {
   box-shadow: 0 5px 15px rgba(0, 166, 255, 0.4);
 }
 
-/* ===== ANIMATED SKILL ICONS (Fixed) ===== */
-.intro-content p img {
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  filter: grayscale(20%);
-}
-
-.intro-content p img:hover {
-  transform: translateY(-8px) scale(1.15);
-  filter: grayscale(0%) drop-shadow(0 5px 15px rgba(0,166,255,0.5));
-}
-
-/* ===== PROFILE PULSE ANIMATION (Fixed) ===== */
-.rounded-frame {
-  animation: pulseGlow 3s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 3px white, 0 0 0 6px rgba(0,166,255,0);
-  }
-  50% {
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 3px white, 0 0 0 12px rgba(0,166,255,0.3);
-  }
-}
-
-/* ===== FADE IN ANIMATIONS FOR SECTIONS (Fixed) ===== */
-.cybersec, .Robotics, .technopreneur, .Achievements, .OtherAchievements {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: sectionFadeIn 0.8s ease forwards;
-}
-
-@keyframes sectionFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.cybersec { animation-delay: 0.2s; }
-.Robotics { animation-delay: 0.4s; }
-.technopreneur { animation-delay: 0.6s; }
-.Achievements { animation-delay: 0.8s; }
-.OtherAchievements { animation-delay: 1s; }
-
-/* ===== GRID CARD FADE IN (Fixed) ===== */
-.grid-card {
-  opacity: 0;
-  animation: cardFadeIn 0.6s ease forwards;
-}
-
-@keyframes cardFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.grid-card:nth-child(1) { animation-delay: 0.1s; }
-.grid-card:nth-child(2) { animation-delay: 0.2s; }
-.grid-card:nth-child(3) { animation-delay: 0.3s; }
-.grid-card:nth-child(4) { animation-delay: 0.4s; }
-.grid-card:nth-child(5) { animation-delay: 0.5s; }
-.grid-card:nth-child(6) { animation-delay: 0.6s; }
-.grid-card:nth-child(7) { animation-delay: 0.7s; }
-.grid-card:nth-child(8) { animation-delay: 0.8s; }
-.grid-card:nth-child(9) { animation-delay: 0.9s; }
-.grid-card:nth-child(10) { animation-delay: 1s; }
-
-/* ===== NEON TEXT EFFECT ===== */
-.head {
-  transition: text-shadow 0.3s ease;
-}
-
-.head:hover {
-  text-shadow: 0 0 10px rgba(0, 166, 255, 0.5), 0 0 20px rgba(0, 166, 255, 0.3);
-}
-
-/* ===== MODERN SCROLLBAR ===== */
+/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -547,7 +524,7 @@ html {
   background: linear-gradient(135deg, #764ba2, #ff00ff);
 }
 
-/* ===== RESPONSIVE DESIGN (Preserved) ===== */
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .intro {
     flex-direction: column;
@@ -565,6 +542,12 @@ html {
   
   .intro-content h2 {
     font-size: 28px;
+  }
+  
+  .intro-content p img {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 5px;
   }
   
   .rounded-frame {
@@ -602,8 +585,10 @@ html {
   }
   
   .techno-content, .robotic-content, .cybersec p {
-    font-size: 16px;
+    font-size: 15px;
     padding: 20px;
+    text-align: left;
+    line-height: 1.6;
   }
   
   .achievements-grid {
@@ -626,12 +611,19 @@ html {
   .lightbox-prev, .lightbox-next {
     font-size: 30px;
     padding: 10px 15px;
+    min-width: 44px;
+    min-height: 44px;
   }
   
   .close {
     font-size: 40px;
     top: 15px;
     right: 20px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .lightbox-caption h3 {
@@ -640,6 +632,61 @@ html {
   
   .lightbox-caption p {
     font-size: 14px;
+  }
+  
+  /* Touch device fixes */
+  .achie1 .hiddendescription,
+  .achie2 .hiddendescription,
+  .achie3 .hiddendescription {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+  }
+  
+  .achie1.active .hiddendescription,
+  .achie2.active .hiddendescription,
+  .achie3.active .hiddendescription {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 15px;
+  }
+  
+  .achie1:active, .achie2:active, .achie3:active {
+    transform: scale(0.99);
+    background-color: #1a1a1a;
+  }
+  
+  .grid-card {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .grid-card.tapped .card-overlay {
+    transform: translateY(0);
+  }
+  
+  .carousel-track img {
+    width: 280px;
+    height: 200px;
+  }
+  
+  .carousel-track {
+    gap: 12px;
+    animation: scroll 30s linear infinite;
+  }
+  
+  .back-to-top {
+    width: 56px;
+    height: 56px;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .cybersec, .Robotics, .technopreneur, .Achievements, .OtherAchievements {
+    animation-duration: 0.5s;
+  }
+  
+  .grid-card {
+    animation-duration: 0.3s;
   }
 }
 
@@ -655,43 +702,7 @@ html {
   }
 }
 
-/* ===== REMOVE CONFLICTING STYLES ===== */
+/* Remove conflicting styles */
 .OtherAchievements .rounded-frame {
   display: none;
-}
-
-/* Fix for carousel gradient overlay */
-.carousel-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.5) 100%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .lightbox-prev, 
-  .lightbox-next,
-  .close {
-    min-width: 44px;
-    min-height: 44px; /* Better touch targets */
-  }
-  
-  /* Fix hover effects on touch devices */
-  @media (hover: hover) {
-    .grid-card:hover {
-      transform: translateY(-10px);
-    }
-  }
-  
-  /* Remove hover on touch devices */
-  @media (hover: none) {
-    .grid-card:active {
-      transform: scale(0.98);
-    }
-  }
 }
