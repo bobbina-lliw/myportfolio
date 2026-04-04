@@ -4,11 +4,35 @@ body {
   color: #ffffff;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Ensure content appears above particles */
+body > *:not(.particles-container):not(#lightbox) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make sure sections have background that covers particles */
+.cybersec,
+.Robotics,
+.technopreneur,
+.Achievements,
+.OtherAchievements,
+.intro {
+  position: relative;
+  z-index: 1;
+  background-color: #0a0a0a;
+}
+
+/* For intro which has gradient, make sure particles are behind */
+.intro {
+  position: relative;
+  z-index: 1;
 }
 
 /* ===== ORIGINAL CAROUSEL STYLES ===== */
@@ -18,6 +42,24 @@ html {
   position: relative;
   background: #0a0a0a;
   border-radius: 12px;
+}
+
+.carousel-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    transparent 20%,
+    transparent 80%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
 }
 
 .carousel-track {
@@ -36,8 +78,12 @@ html {
 }
 
 @keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ===== ORIGINAL HIDDEN DESCRIPTION ===== */
@@ -46,7 +92,10 @@ html {
   font-size: 18px;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.3s ease, margin 0.3s ease;
+  transition:
+    max-height 0.5s ease,
+    opacity 0.3s ease,
+    margin 0.3s ease;
   margin-top: 0;
   padding-top: 0;
 }
@@ -95,14 +144,15 @@ html {
   justify-content: center;
 }
 
-/* ===== ROUNDED FRAME ===== */
+/* ===== ROUNDED FRAME WITH ENHANCED PULSE GLOW ===== */
 .rounded-frame {
   border-radius: 50%;
   overflow: hidden;
   width: 500px;
   height: 500px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   border: 3px solid white;
+  animation: pulseGlow 3s ease-in-out infinite;
 }
 
 .rounded-frame img {
@@ -110,6 +160,22 @@ html {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 0 3px white,
+      0 0 0 6px rgba(0, 166, 255, 0);
+  }
+  50% {
+    box-shadow:
+      0 50px 80px rgba(0, 0, 0, 0.3),
+      0 0 0 3px rgba(223, 223, 223, 0.897),
+      0 0 0 12px rgba(0, 166, 255, 0.3);
+  }
 }
 
 /* ===== CONTRAST ===== */
@@ -174,8 +240,10 @@ html {
   transition: all 0.3s ease;
 }
 
-/* ===== ACHIEVEMENT CARDS ===== */
-.achie1, .achie2, .achie3 {
+/* ===== ACHIEVEMENT CARDS WITH SLIDE-IN ANIMATIONS ===== */
+.achie1,
+.achie2,
+.achie3 {
   display: flex;
   align-items: center;
   gap: 30px;
@@ -185,12 +253,16 @@ html {
   width: 100%;
   background-color: #121212;
   border-radius: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.achie1:hover, .achie2:hover, .achie3:hover {
+.achie1:hover,
+.achie2:hover,
+.achie3:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,166,255,0.2);
+  box-shadow: 0 10px 30px rgba(0, 166, 255, 0.2);
 }
 
 .achie1:hover .hiddendescription,
@@ -201,6 +273,47 @@ html {
   margin-top: 0;
   overflow-y: auto;
   padding-right: 10px;
+}
+
+/* Slide-in animations for achievement cards */
+.achie1 {
+  animation: slideInLeft 0.8s ease forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.achie2 {
+  animation: slideInRight 0.8s ease forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.achie3 {
+  animation: slideInLeft 0.8s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .text_container1 {
@@ -214,6 +327,30 @@ html {
   margin-bottom: 0px;
   font-weight: bold;
   color: #00a6ff;
+  animation: flicker 3s infinite;
+}
+
+.head:hover {
+  animation: none;
+  text-shadow:
+    0 0 20px #00a6ff,
+    0 0 40px #00a6ff;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    text-shadow:
+      0 0 2px #00a6ff,
+      0 0 10px #00a6ff,
+      0 0 20px #00a6ff;
+  }
+  50% {
+    text-shadow:
+      0 0 0px #00a6ff,
+      0 0 5px #00a6ff,
+      0 0 15px #00a6ff;
+  }
 }
 
 .Achiimg1 {
@@ -247,6 +384,50 @@ html {
   background: linear-gradient(135deg, #1a1a2e, #16213e);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  animation: cardFadeIn 0.6s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.grid-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.grid-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.grid-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.grid-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.grid-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.grid-card:nth-child(7) {
+  animation-delay: 0.7s;
+}
+.grid-card:nth-child(8) {
+  animation-delay: 0.8s;
+}
+.grid-card:nth-child(9) {
+  animation-delay: 0.9s;
+}
+.grid-card:nth-child(10) {
+  animation-delay: 1s;
 }
 
 .card-image {
@@ -277,7 +458,12 @@ html {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    transparent 100%
+  );
   padding: 25px 20px 20px;
   transform: translateY(100%);
   transition: transform 0.4s ease;
@@ -293,80 +479,65 @@ html {
   font-weight: 700;
   margin-bottom: 5px;
   color: #00a6ff;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 .card-overlay p {
   font-size: 14px;
   color: #e0e0e0;
   margin: 0;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
-/* ===== LIGHTBOX STYLES ===== */
+/* ===== LIGHTBOX STYLES (FIXED) ===== */
 .lightbox {
   display: none;
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.95);
-  z-index: 1000;
-  justify-content: center;
+  z-index: 10000;
   align-items: center;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .lightbox-content {
   position: relative;
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 90vw;
+  max-height: 90vh;
   text-align: center;
-  animation: zoomIn 0.3s ease;
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  margin: auto;
+  padding: 0;
 }
 
 #lightbox-img {
-  max-width: 100%;
-  max-height: 80vh;
+  max-width: 85vw;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  display: block;
+  margin: 0 auto;
 }
 
 .lightbox-caption {
-  margin-top: 20px;
+  margin-top: 15px;
   color: white;
   text-align: center;
-}
-
-.lightbox-caption h3 {
-  font-size: 24px;
-  margin-bottom: 8px;
-  color: #00a6ff;
-  font-family: 'Inter', Arial, sans-serif;
-}
-
-.lightbox-caption p {
-  font-size: 16px;
-  color: #e0e0e0;
-  font-family: 'Inter', Arial, sans-serif;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .close {
@@ -378,7 +549,7 @@ html {
   font-weight: bold;
   cursor: pointer;
   transition: color 0.3s ease;
-  z-index: 1001;
+  z-index: 10001;
   font-family: Arial, sans-serif;
 }
 
@@ -386,7 +557,8 @@ html {
   color: #00a6ff;
 }
 
-.lightbox-prev, .lightbox-next {
+.lightbox-prev,
+.lightbox-next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -409,7 +581,8 @@ html {
   right: 20px;
 }
 
-.lightbox-prev:hover, .lightbox-next:hover {
+.lightbox-prev:hover,
+.lightbox-next:hover {
   background: rgba(0, 166, 255, 0.5);
   transform: translateY(-50%) scale(1.1);
 }
@@ -451,25 +624,15 @@ html {
 
 .intro-content p img:hover {
   transform: translateY(-8px) scale(1.15);
-  filter: grayscale(0%) drop-shadow(0 5px 15px rgba(0,166,255,0.5));
+  filter: grayscale(0%) drop-shadow(0 5px 15px rgba(0, 166, 255, 0.5));
 }
 
-/* ===== PROFILE PULSE ANIMATION ===== */
-.rounded-frame {
-  animation: pulseGlow 3s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 3px white, 0 0 0 6px rgba(0,166,255,0);
-  }
-  50% {
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 3px white, 0 0 0 12px rgba(0,166,255,0.3);
-  }
-}
-
-/* ===== FADE IN ANIMATIONS ===== */
-.cybersec, .Robotics, .technopreneur, .Achievements, .OtherAchievements {
+/* ===== FADE IN ANIMATIONS FOR SECTIONS ===== */
+.cybersec,
+.Robotics,
+.technopreneur,
+.Achievements,
+.OtherAchievements {
   opacity: 0;
   transform: translateY(20px);
   animation: sectionFadeIn 0.8s ease forwards;
@@ -486,47 +649,20 @@ html {
   }
 }
 
-.cybersec { animation-delay: 0.2s; }
-.Robotics { animation-delay: 0.4s; }
-.technopreneur { animation-delay: 0.6s; }
-.Achievements { animation-delay: 0.8s; }
-.OtherAchievements { animation-delay: 1s; }
-
-/* ===== GRID CARD FADE IN ===== */
-.grid-card {
-  opacity: 0;
-  animation: cardFadeIn 0.6s ease forwards;
+.cybersec {
+  animation-delay: 0.2s;
 }
-
-@keyframes cardFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.Robotics {
+  animation-delay: 0.4s;
 }
-
-.grid-card:nth-child(1) { animation-delay: 0.1s; }
-.grid-card:nth-child(2) { animation-delay: 0.2s; }
-.grid-card:nth-child(3) { animation-delay: 0.3s; }
-.grid-card:nth-child(4) { animation-delay: 0.4s; }
-.grid-card:nth-child(5) { animation-delay: 0.5s; }
-.grid-card:nth-child(6) { animation-delay: 0.6s; }
-.grid-card:nth-child(7) { animation-delay: 0.7s; }
-.grid-card:nth-child(8) { animation-delay: 0.8s; }
-.grid-card:nth-child(9) { animation-delay: 0.9s; }
-.grid-card:nth-child(10) { animation-delay: 1s; }
-
-/* ===== NEON TEXT EFFECT ===== */
-.head {
-  transition: text-shadow 0.3s ease;
+.technopreneur {
+  animation-delay: 0.6s;
 }
-
-.head:hover {
-  text-shadow: 0 0 10px rgba(0, 166, 255, 0.5), 0 0 20px rgba(0, 166, 255, 0.3);
+.Achievements {
+  animation-delay: 0.8s;
+}
+.OtherAchievements {
+  animation-delay: 1s;
 }
 
 /* ===== SCROLLBAR ===== */
@@ -550,19 +686,6 @@ html {
 }
 
 /* ===== MAKE ALL TEXT VERTICALLY SCROLLABLE IF TOO LONG ===== */
-
-/* For achievement descriptions - on hover for desktop */
-.achie1:hover .hiddendescription,
-.achie2:hover .hiddendescription,
-.achie3:hover .hiddendescription {
-  max-height: 350px;
-  opacity: 1;
-  margin-top: 0;
-  overflow-y: auto;
-  padding-right: 10px;
-}
-
-/* For all text containers - add vertical scroll when content exceeds */
 .techno-content,
 .robotic-content,
 .cybersec p {
@@ -570,7 +693,6 @@ html {
   overflow-y: auto;
 }
 
-/* Style scrollbars for text areas */
 .hiddendescription::-webkit-scrollbar,
 .techno-content::-webkit-scrollbar,
 .robotic-content::-webkit-scrollbar,
@@ -594,6 +716,11 @@ html {
   border-radius: 4px;
 }
 
+/* ===== REMOVE CONFLICTING STYLES ===== */
+.OtherAchievements .rounded-frame {
+  display: none;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .intro {
@@ -601,37 +728,39 @@ html {
     text-align: center;
     padding: 40px 5%;
   }
-  
+
   .intro-content {
     padding-top: 40px;
   }
-  
+
   .intro-content h1 {
     font-size: 40px;
   }
-  
+
   .intro-content h2 {
     font-size: 28px;
   }
-  
+
   .rounded-frame {
     width: 250px;
     height: 250px;
   }
-  
-  .achie1, .achie2, .achie3 {
+
+  .achie1,
+  .achie2,
+  .achie3 {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .achie2 {
     flex-direction: column;
   }
-  
+
   .text_container1 {
     text-align: center;
   }
-  
+
   .Achievements,
   .OtherAchievements,
   .technopreneur,
@@ -639,59 +768,61 @@ html {
   .cybersec {
     padding: 40px 20px;
   }
-  
+
   .Boldedfont {
     font-size: 28px;
   }
-  
+
   .head {
     font-size: 28px;
   }
-  
-  .techno-content, .robotic-content, .cybersec p {
+
+  .techno-content,
+  .robotic-content,
+  .cybersec p {
     font-size: 16px;
     padding: 20px;
     max-height: 300px;
   }
-  
+
   .achievements-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
   }
-  
+
   .card-overlay h3 {
     font-size: 16px;
   }
-  
+
   .card-overlay p {
     font-size: 12px;
   }
-  
+
   .card-overlay {
     padding: 15px 15px 12px;
   }
-  
-  .lightbox-prev, .lightbox-next {
+
+  .lightbox-prev,
+  .lightbox-next {
     font-size: 30px;
     padding: 10px 15px;
   }
-  
+
   .close {
     font-size: 40px;
     top: 15px;
     right: 20px;
   }
-  
+
   .lightbox-caption h3 {
     font-size: 18px;
   }
-  
+
   .lightbox-caption p {
     font-size: 14px;
   }
 
-  /* ===== MOBILE: MAKE TEXT VERTICALLY SCROLLABLE ===== */
-  /* Descriptions visible by default with vertical scroll */
+  /* MOBILE: Make text vertically scrollable */
   .achie1 .hiddendescription,
   .achie2 .hiddendescription,
   .achie3 .hiddendescription {
@@ -701,43 +832,31 @@ html {
     margin-top: 15px;
     padding-right: 10px;
   }
-  
-  /* Remove hover requirement on mobile */
+
   .achie1:hover .hiddendescription,
   .achie2:hover .hiddendescription,
   .achie3:hover .hiddendescription {
     max-height: 200px !important;
     opacity: 1 !important;
   }
-  
-  /* Remove expand/collapse cursor on mobile */
-  .achie1, .achie2, .achie3 {
+
+  .achie1,
+  .achie2,
+  .achie3 {
     cursor: default;
   }
-  
-  /* Fix text overflow - words wrap, no horizontal scroll */
-  .techno-content, 
-  .robotic-content, 
+
+  .techno-content,
+  .robotic-content,
   .cybersec p,
   .text_container1 {
     word-wrap: break-word;
     overflow-wrap: break-word;
     overflow-x: hidden;
   }
-  
-  /* Style the vertical scrollbar for description text */
+
   .hiddendescription::-webkit-scrollbar {
     width: 4px;
-  }
-  
-  .hiddendescription::-webkit-scrollbar-track {
-    background: #1a1a2e;
-    border-radius: 4px;
-  }
-  
-  .hiddendescription::-webkit-scrollbar-thumb {
-    background: #00a6ff;
-    border-radius: 4px;
   }
 }
 
@@ -746,27 +865,10 @@ html {
     grid-template-columns: 1fr;
     gap: 25px;
   }
-  
-  .lightbox-prev, .lightbox-next {
+
+  .lightbox-prev,
+  .lightbox-next {
     font-size: 24px;
     padding: 8px 12px;
   }
-}
-
-/* ===== REMOVE CONFLICTING STYLES ===== */
-.OtherAchievements .rounded-frame {
-  display: none;
-}
-
-/* Fix for carousel gradient overlay */
-.carousel-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.5) 100%);
-  z-index: 1;
-  pointer-events: none;
 }

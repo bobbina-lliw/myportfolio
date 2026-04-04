@@ -791,4 +791,147 @@
   backToTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
+  
+  // ===== CONNECTING NETWORK PARTICLES (FIXED) =====
+  function createNetworkParticles() {
+    // Remove any existing particle containers
+    const existingContainer = document.querySelector(".particles-canvas");
+    if (existingContainer) existingContainer.remove();
+
+    const canvas = document.createElement("canvas");
+    canvas.className = "particles-canvas";
+    canvas.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  `;
+    document.body.insertBefore(canvas, document.body.firstChild);
+
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let animationId;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+    function initParticles() {
+      particles = [];
+      // More particles for better connections
+      const particleCount = Math.min(120, Math.floor(window.innerWidth * 0.15));
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 2, // Faster movement
+          vy: (Math.random() - 0.5) * 2,
+          radius: Math.random() * 3 + 1.5,
+          color: Math.random() > 0.7 ? "#764ba2" : "#00a6ff",
+        });
+      }
+    }
+
+    function draw() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw connections - increased max distance for more connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const maxDistance = 150; // Increased from 180 to 250
+
+          if (distance < maxDistance) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            // Brighter connections when closer
+            const opacity = 0.6 * (1 - distance / maxDistance);
+            ctx.strokeStyle = `rgba(0, 166, 255, ${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particles
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = p.color;
+        ctx.fill();
+
+        // Update position
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around edges instead of bouncing (keeps particles on screen)
+        if (p.x < -50) p.x = canvas.width + 50;
+        if (p.x > canvas.width + 50) p.x = -50;
+        if (p.y < -50) p.y = canvas.height + 50;
+        if (p.y > canvas.height + 50) p.y = -50;
+      }
+
+      animationId = requestAnimationFrame(draw);
+    }
+
+    // Mouse interaction - attract particles to cursor
+    let mouseX = null,
+      mouseY = null;
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Attract particles to cursor (creates cluster effect)
+      for (let p of particles) {
+        const dx = mouseX - p.x;
+        const dy = mouseY - p.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const attractRadius = 150;
+
+        if (distance < attractRadius) {
+          const angle = Math.atan2(dy, dx);
+          const force = ((attractRadius - distance) / attractRadius) * 1.4;
+          p.vx += Math.cos(angle) * force;
+          p.vy += Math.sin(angle) * force;
+
+          // Limit velocity
+          const maxSpeed = 4;
+          p.vx = Math.min(maxSpeed, Math.max(-maxSpeed, p.vx));
+          p.vy = Math.min(maxSpeed, Math.max(-maxSpeed, p.vy));
+        }
+      }
+    });
+
+    initParticles();
+    draw();
+
+    // Cleanup on page unload
+    window.addEventListener("beforeunload", () => {
+      if (animationId) cancelAnimationFrame(animationId);
+    });
+  }
+
+  // Run on load
+  window.addEventListener("load", () => {
+    createNetworkParticles();
+  });
 </script>
