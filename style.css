@@ -10,6 +10,44 @@ body {
 html {
   scroll-behavior: smooth;
 }
+/* ===== NEON FLICKER EFFECT ===== */
+@keyframes flicker {
+  0%, 100% {
+    text-shadow: 0px 0px 0px #00a6ff, 0 0 10px #00a6ff, 0 0 20px #00a6ff;
+  }
+  50% {
+    text-shadow: 0px 2px 0px #00a6ff, 0 0 5px #00a6ff, 0 0 15px #00a6ff;
+  }
+}
+
+.head {
+  animation: flicker 3s infinite;
+}
+
+.head:hover {
+  animation: none;
+  text-shadow: 0 0 20px #00a6ff, 0 0 40px #00a6ff;
+}
+
+/* Ensure content appears above particles */
+body > *:not(.particles-container) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make sure sections have background that covers particles */
+.cybersec, .Robotics, .technopreneur, .Achievements, .OtherAchievements,
+.intro {
+  position: relative;
+  z-index: 1;
+  background-color: #0a0a0a; /* Solid background to hide particles behind */
+}
+
+/* For intro which has gradient, make sure particles are behind */
+.intro {
+  position: relative;
+  z-index: 1;
+}
 
 /* Ensure content appears above particles */
 body > *:not(.particles-container):not(#lightbox) {

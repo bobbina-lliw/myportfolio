@@ -792,6 +792,7 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
+<<<<<<< HEAD
   
   // ===== CONNECTING NETWORK PARTICLES (FIXED) =====
   function createNetworkParticles() {
@@ -802,6 +803,16 @@
     const canvas = document.createElement("canvas");
     canvas.className = "particles-canvas";
     canvas.style.cssText = `
+=======
+  function createParticles() {
+  // Remove existing particles container if any
+  const existingContainer = document.querySelector('.particles-container');
+  if (existingContainer) existingContainer.remove();
+  
+  const particlesContainer = document.createElement('div');
+  particlesContainer.className = 'particles-container';
+  particlesContainer.style.cssText = `
+>>>>>>> 62202ef55054d50ebba20494676cd984c914f38c
     position: fixed;
     top: 0;
     left: 0;
@@ -809,6 +820,7 @@
     height: 100%;
     pointer-events: none;
     z-index: 0;
+<<<<<<< HEAD
   `;
     document.body.insertBefore(canvas, document.body.firstChild);
 
@@ -934,4 +946,73 @@
   window.addEventListener("load", () => {
     createNetworkParticles();
   });
+=======
+    overflow: hidden;
+  `;
+  document.body.insertBefore(particlesContainer, document.body.firstChild);
+  
+  // Set body content to be above particles
+  document.body.style.position = 'relative';
+  document.body.style.zIndex = '1';
+  
+  for(let i = 0; i < 300; i++) {
+    const particle = document.createElement('div');
+    particle.style.cssText = `
+      position: absolute;
+      width: ${Math.random() * 4 + 1}px;
+      height: ${Math.random() * 4 + 1}px;
+      background: ${Math.random() > 0.7 ? '#764ba2' : '#00a6ff'};
+      border-radius: 50%;
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      opacity: ${Math.random() * 0.5 + 0.2};
+      animation: floatParticle ${Math.random() * 10 + 8}s linear infinite;
+      animation-delay: ${Math.random() * 5}s;
+      box-shadow: 0 0 ${Math.random() * 5 + 2}px ${Math.random() > 0.8 ? '#00a6ff' : 'transparent'};
+    `;
+    particlesContainer.appendChild(particle);
+  }
+}
+
+// Add keyframe for particles if not already added
+if (!document.querySelector('#particle-styles')) {
+  const particleStyle = document.createElement('style');
+  particleStyle.id = 'particle-styles';
+  particleStyle.textContent = `
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px);
+        opacity: 0;
+      }
+    }
+    
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+  `;
+  document.head.appendChild(particleStyle);
+}
+
+// Run on load with a slight delay to ensure DOM is ready
+window.addEventListener('load', () => {
+  setTimeout(createParticles, 100);
+});
+
+>>>>>>> 62202ef55054d50ebba20494676cd984c914f38c
 </script>
