@@ -672,3 +672,26 @@ html {
   z-index: 1;
   pointer-events: none;
 }
+
+@media (max-width: 768px) {
+  .lightbox-prev, 
+  .lightbox-next,
+  .close {
+    min-width: 44px;
+    min-height: 44px; /* Better touch targets */
+  }
+  
+  /* Fix hover effects on touch devices */
+  @media (hover: hover) {
+    .grid-card:hover {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Remove hover on touch devices */
+  @media (hover: none) {
+    .grid-card:active {
+      transform: scale(0.98);
+    }
+  }
+}
