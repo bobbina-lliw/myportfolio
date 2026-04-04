@@ -11,6 +11,26 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Ensure content appears above particles */
+body > *:not(.particles-container) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make sure sections have background that covers particles */
+.cybersec, .Robotics, .technopreneur, .Achievements, .OtherAchievements,
+.intro {
+  position: relative;
+  z-index: 1;
+  background-color: #0a0a0a; /* Solid background to hide particles behind */
+}
+
+/* For intro which has gradient, make sure particles are behind */
+.intro {
+  position: relative;
+  z-index: 1;
+}
+
 /* ===== ORIGINAL CAROUSEL STYLES ===== */
 .carousel-container {
   width: 100%;
