@@ -203,6 +203,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 .technopreneur,
 .Achievements,
 .OtherAchievements,
+.contact-modal,
 .intro {
   position: relative;
   z-index: 1;
