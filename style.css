@@ -10,47 +10,189 @@ body {
 html {
   scroll-behavior: smooth;
 }
-/* ===== NEON FLICKER EFFECT ===== */
-@keyframes flicker {
-  0%, 100% {
-    text-shadow: 0px 0px 0px #00a6ff, 0 0 10px #00a6ff, 0 0 20px #00a6ff;
-  }
-  50% {
-    text-shadow: 0px 2px 0px #00a6ff, 0 0 5px #00a6ff, 0 0 15px #00a6ff;
-  }
-}
 
-.head {
-  animation: flicker 3s infinite;
-}
-
-.head:hover {
-  animation: none;
-  text-shadow: 0 0 20px #00a6ff, 0 0 40px #00a6ff;
-}
-
-/* Ensure content appears above particles */
-body > *:not(.particles-container) {
-  position: relative;
-  z-index: 1;
-}
-
-/* Make sure sections have background that covers particles */
-.cybersec, .Robotics, .technopreneur, .Achievements, .OtherAchievements,
+/* Make intro section position relative for absolute positioning */
 .intro {
   position: relative;
-  z-index: 1;
-  background-color: #0a0a0a; /* Solid background to hide particles behind */
 }
 
-/* For intro which has gradient, make sure particles are behind */
-.intro {
+/* Add these styles for the contact button */
+.contact-btn-container {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.contact-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 166, 255, 0.8),
+    rgba(0, 85, 170, 0.8)
+  );
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 166, 255, 0.3);
+  border-color: rgba(0, 166, 255, 0.6);
+}
+
+/* Contact Modal Styles */
+.contact-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10001;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.contact-modal-content {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
   position: relative;
-  z-index: 1;
+  animation: zoomIn 0.3s ease;
+  border: 1px solid rgba(0, 166, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
-/* Ensure content appears above particles */
-body > *:not(.particles-container):not(#lightbox) {
+.contact-modal-content h2 {
+  color: #00a6ff;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.contact-modal-content p {
+  color: #e0e0e0;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.email-display {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 12px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid rgba(0, 166, 255, 0.3);
+}
+
+.email-display span {
+  color: #00a6ff;
+  font-size: 18px;
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.copy-btn {
+  background: linear-gradient(135deg, #00a6ff, #0055aa);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 500;
+}
+
+.copy-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 166, 255, 0.4);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+  color: #00a6ff;
+}
+
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.contact-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-icon:hover {
+  background: #00a6ff;
+  transform: translateY(-5px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== CRITICAL FIX - Exclude backToTop button ===== */
+/* Ensure content appears above particles - EXCLUDING backToTop */
+body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
   position: relative;
   z-index: 1;
 }
