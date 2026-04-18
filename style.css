@@ -196,11 +196,18 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
   position: relative;
   z-index: 1;
 }
-
+.info{
+  padding-top: 15px;
+  color: white;
+  background-color: transparent!important;
+  font-size: 34px;
+}
 /* Make sure sections have background that covers particles */
 .cybersec,
+.info,
 .Robotics,
 .technopreneur,
+.leadership,
 .Achievements,
 .OtherAchievements,
 .contact-modal,
@@ -377,6 +384,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 /* ===== SECTION CONTAINERS ===== */
 .OtherAchievements,
 .technopreneur,
+.leadership,
 .Robotics,
 .cybersec,
 .Achievements {
@@ -392,6 +400,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 
 /* ===== CONTENT BOXES ===== */
 .techno-content,
+.leadership-content,
 .robotic-content {
   font-size: 20px;
   line-height: 1.8;
@@ -839,11 +848,15 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 .technopreneur {
   animation-delay: 0.6s;
 }
-.Achievements {
+.leadership {
   animation-delay: 0.8s;
 }
-.OtherAchievements {
+
+.Achievements {
   animation-delay: 1s;
+}
+.OtherAchievements {
+  animation-delay: 1.2s;
 }
 
 /* ===== SCROLLBAR ===== */
@@ -868,6 +881,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 
 /* ===== MAKE ALL TEXT VERTICALLY SCROLLABLE IF TOO LONG ===== */
 .techno-content,
+.leadership-content,
 .robotic-content,
 .cybersec p {
   max-height: 400px;
@@ -876,6 +890,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 
 .hiddendescription::-webkit-scrollbar,
 .techno-content::-webkit-scrollbar,
+.leadership-content::-webkit-scrollbar,
 .robotic-content::-webkit-scrollbar,
 .cybersec p::-webkit-scrollbar {
   width: 6px;
@@ -883,6 +898,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 
 .hiddendescription::-webkit-scrollbar-track,
 .techno-content::-webkit-scrollbar-track,
+.leadership-content::-webkit-scrollbar,
 .robotic-content::-webkit-scrollbar-track,
 .cybersec p::-webkit-scrollbar-track {
   background: #1a1a2e;
@@ -891,6 +907,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
 
 .hiddendescription::-webkit-scrollbar-thumb,
 .techno-content::-webkit-scrollbar-thumb,
+.leadership-content::-webkit-scrollbar,
 .robotic-content::-webkit-scrollbar-thumb,
 .cybersec p::-webkit-scrollbar-thumb {
   background: #00a6ff;
@@ -945,6 +962,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
   .Achievements,
   .OtherAchievements,
   .technopreneur,
+  .leadership,
   .Robotics,
   .cybersec {
     padding: 40px 20px;
@@ -959,6 +977,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
   }
 
   .techno-content,
+  .leadership-content,
   .robotic-content,
   .cybersec p {
     font-size: 16px;
@@ -1028,6 +1047,7 @@ body > *:not(.particles-container):not(#lightbox):not(#backToTop) {
   }
 
   .techno-content,
+  .leadership-content,
   .robotic-content,
   .cybersec p,
   .text_container1 {
